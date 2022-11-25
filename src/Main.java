@@ -1,8 +1,25 @@
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        enum Gender {
+            FEMALE,
+            MALE
+        }
+
+        class Animal {
+            int id;
+            String kind;
+            Gender gender;
+            String name;
+            Date birthday;
+            String description;
+        }
+
+        ArrayList<Animal> pets = new ArrayList<>();
 
         final String LOGO = """
 
@@ -23,7 +40,7 @@ public class Main {
                 +--------------------------------------------------------+
                 | ADD - add a pet.                                       |
                 | LIST - data on all available pets.                     |
-                | REMOVE n - command removes pet number n from the list. |
+                | REMOVE n - remove pet number n from the list.          |
                 | EDIT n - edit pet information.                         |
                 | EXIT - exit from the program.                          |
                 +--------------------------------------------------------+""".indent(7);
@@ -35,7 +52,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         inputCommand = sc.nextLine();
 
-        while (!Objects.equals(inputCommand.toUpperCase(), "EXIT")) {
+        while (!inputCommand.equalsIgnoreCase("EXIT")) {
             System.out.println("we are inside while");
             inputCommand = sc.nextLine();
 
