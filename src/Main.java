@@ -51,7 +51,23 @@ public class Main {
         ArrayList<Animal> pets = new ArrayList<>();
 
 // interactions
+        // functions
+        void hello(;;;){
 
+            System.out.println("Hello");
+        }
+        void addPet(){
+            System.out.println("hello");
+            int addId;
+            if (pets.isEmpty()) {
+                addId = 0;
+            } else {
+                addId = pets.size();
+            }
+        }
+
+
+        // main loop
         Scanner sc = new Scanner(System.in);
         boolean itWorks = true;
 
