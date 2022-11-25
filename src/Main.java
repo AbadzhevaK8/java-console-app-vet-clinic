@@ -52,26 +52,27 @@ public class Main {
 
 // interactions
 
-        String inputCommand;
         Scanner sc = new Scanner(System.in);
-        inputCommand = sc.nextLine();
+        boolean itWorks = true;
 
-        while (!inputCommand.equalsIgnoreCase("EXIT")) {
-            System.out.println("we are inside while");
-            inputCommand = sc.nextLine();
+        while (itWorks) {
+
+            String inputCommand = sc.nextLine();
             inputCommand = inputCommand.toUpperCase();
-            if (inputCommand.equals("ADD")){
+
+            if (inputCommand.equals("EXIT")) {
+                itWorks = false;
+            } else if (inputCommand.equals("ADD")){
                 System.out.println("we are inside ADD");
             } else if (inputCommand.equals("LIST")) {
                 System.out.println("we are inside LIST");
-            } else if (inputCommand.startsWith("REMOVE")) { // startswith
+            } else if (inputCommand.startsWith("REMOVE")) {
                 System.out.println("we are inside REMOVE");
-            } else if (inputCommand.startsWith("EDIT")) { // startswith
+            } else if (inputCommand.startsWith("EDIT")) {
                 System.out.println("we are inside EDIT");
             } else {
                 System.out.println("Please, enter the command.");
             }
         }
-
     }
 }
