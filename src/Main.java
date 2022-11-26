@@ -1,5 +1,6 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
-//import java.util.Date;
 import java.util.Scanner;
 
 // data
@@ -20,7 +21,7 @@ class Animal {
 class UICycle {
 
     ArrayList<Animal> pets = new ArrayList<>();
-    void addPet(Scanner sc){
+    void addPet(@NotNull Scanner sc){
         Animal pet = new Animal();
         pet.id = (!pets.isEmpty()) ? (pets.size() + 1) : 1;
         System.out.println("Enter pet kind:");
@@ -35,8 +36,21 @@ class UICycle {
         pet.description = sc.nextLine();
         pets.add(pet);
         System.out.println("Adding successful:");
-        System.out.printf("%d. %s %s %s %s %s", pet.id, pet.kind, pet.gender, pet.name, pet.birthday, pet.description);
-        System.out.println(pets.size());
+        System.out.printf("%d. %s %s %s %s %s\n", pet.id, pet.kind, pet.gender, pet.name, pet.birthday, pet.description);
+        System.out.println("Pets array size: " + pets.size());
+
+    }
+
+    void list() {
+        // TODO
+    }
+
+    void remove(Scanner sc) {
+        // TODO
+    }
+
+    void edit(Scanner sc) {
+        // TODO
     }
 
     void doCycle() {
@@ -53,24 +67,20 @@ class UICycle {
             } else if (inputCommand.equals("ADD")){
                 addPet(sc);
             } else if (inputCommand.equals("LIST")) {
-                System.out.println("we are inside LIST");
+                list();
             } else if (inputCommand.startsWith("REMOVE")) {
-                System.out.println("we are inside REMOVE");
+                remove(sc);
             } else if (inputCommand.startsWith("EDIT")) {
-                System.out.println("we are inside EDIT");
+                edit(sc);
             } else {
                 System.out.println("Please, enter the command.");
             }
         }
     }
-
 }
-// functions
-
 
 public class Main {
     public static void main(String[] args) {
-// logo and manual
         System.out.println(Manual.LOGO);
         System.out.println(Manual.MANUAL);
 
