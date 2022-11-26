@@ -3,10 +3,39 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
+    // data
+    enum Gender {
+        FEMALE,
+        MALE
+    }
+
+    static class Animal {
+        int id;
+        String kind;
+        Gender gender;
+        String name;
+        Date birthday;
+        String description;
+    }
+
+    static ArrayList<Animal> pets = new ArrayList<>();
+
+    // functions
+    static void addPet(Scanner sc){
+        Animal pet = new Animal();
+        pet.id = (!pets.isEmpty()) ? (pets.size() + 1) : 0;
+        System.out.println("Enter pet kind:");
+        pet.kind = sc.nextLine();
+        System.out.println("Enter the gender of the pet:");
+        System.out.println("Enter pet name:");
+        pet.name = sc.nextLine();
+        System.out.println("Enter your pet's date of birth:");
+        System.out.println("Enter a description of the pet:");
+        pet.description = sc.nextLine();
+    }
+
     public static void main(String[] args) {
-
 // logo and manual
-
         final String LOGO = """
                                                                                           \s
                                                        ,,    ,,                ,,         \s
@@ -32,40 +61,8 @@ public class Main {
         System.out.println(LOGO);
         System.out.println(MANUAL);
 
-// data
-
-        enum Gender {
-            FEMALE,
-            MALE
-        }
-
-        class Animal {
-            int id;
-            String kind;
-            Gender gender;
-            String name;
-            Date birthday;
-            String description;
-        }
-
-        ArrayList<Animal> pets = new ArrayList<>();
 
 // interactions
-        // functions
-        void hello(;;;){
-
-            System.out.println("Hello");
-        }
-        void addPet(){
-            System.out.println("hello");
-            int addId;
-            if (pets.isEmpty()) {
-                addId = 0;
-            } else {
-                addId = pets.size();
-            }
-        }
-
 
         // main loop
         Scanner sc = new Scanner(System.in);
@@ -80,6 +77,7 @@ public class Main {
                 itWorks = false;
             } else if (inputCommand.equals("ADD")){
                 System.out.println("we are inside ADD");
+                addPet(sc);
             } else if (inputCommand.equals("LIST")) {
                 System.out.println("we are inside LIST");
             } else if (inputCommand.startsWith("REMOVE")) {
