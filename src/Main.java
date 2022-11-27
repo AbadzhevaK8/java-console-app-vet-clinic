@@ -1,29 +1,26 @@
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
-// data
-//    enum Gender {
-//        FEMALE,
-//        MALE
-//    }
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 class Animal {
     int id;
     String kind;
     String gender;
     String name;
-    String birthday;
+    Date birthday;
     String description;
 }
 
 class UICycle {
 
     ArrayList<Animal> pets = new ArrayList<>();
-    void addPet(@NotNull Scanner sc){
+    int petsIdCounter = 0;
+
+    void addPet(@NotNull Scanner sc) throws ParseException { // FIXME Зачем IDE настояла добавить тут @NotNull?
+        petsIdCounter++;
         Animal pet = new Animal();
-        pet.id = (!pets.isEmpty()) ? (pets.size() + 1) : 1;
+        pet.id = petsIdCounter;
         System.out.println("Enter pet kind:");
         pet.kind = sc.nextLine();
         System.out.println("Enter the gender of the pet (male / female):");
@@ -31,7 +28,7 @@ class UICycle {
         System.out.println("Enter pet name:");
         pet.name = sc.nextLine();
         System.out.println("Enter your pet's date of birth (DD/MM/YYYY):");
-        pet.birthday = sc.nextLine();
+        pet.birthday = new SimpleDateFormat("dd/MM/yyyy").parse(sc.nextLine()); // TODO add try catch for date.
         System.out.println("Enter a description of the pet:");
         pet.description = sc.nextLine();
         pets.add(pet);
@@ -42,18 +39,69 @@ class UICycle {
     }
 
     void list() {
-        // TODO
+        if (pets.isEmpty()) {
+            System.out.println("No pets found.");
+        } else {
+            System.out.println("List of pets:");
+            System.out.printf("%-5s | %-10s | %-6s | %-15s | %-30s | %s\n", "id", "kind", "gender", "name", "birthday", "description");
+            System.out.println("-".repeat(100));
+            for (Animal pet : pets) {
+                System.out.printf("%-5d | %-10s | %-6s | %-15s | %-30s | %s\n", pet.id, pet.kind, pet.gender, pet.name, pet.birthday, pet.description);
+            }
+        }
     }
 
-    void remove(Scanner sc) {
-        // TODO
+    void remove(String removeCommand) {
+        int removeNumber = Integer.parseInt(removeCommand.replace("REMOVE ", "")); // TODO add try catch for number.
+        for (Animal p : pets) {
+            if (p.id == removeNumber) {
+                pets.removeIf(pet -> pet.id == removeNumber);
+            } else {
+                System.out.println("Id not found. Please, repeat the command with the correct pet id:");
+            }
+        }
     }
 
-    void edit(Scanner sc) {
-        // TODO
+    void edit(String editCommand, Scanner sc) throws ParseException { // FIXME пока не знаю что делать с throws ParseException но это про Date.
+        int editNumber = Integer.parseInt(editCommand.replace("EDIT ", "")); // TODO add try catch for number.
+        System.out.println(Manual.EDITMENU);
+        int fieldNumber = sc.nextInt();
+        for (Animal p : pets) {
+            if (p.id == editNumber) {
+                switch (fieldNumber) {
+                    case (1) -> {
+                        System.out.println("Enter new kind:");
+                        p.kind = sc.nextLine();
+                    }
+                    case (2) -> {
+                        System.out.println("Enter new gender:");
+                        p.gender = sc.nextLine();
+                    }
+                    case (3) -> {
+                        System.out.println(p.name);
+                        System.out.println("Enter new name:");
+                        p.name = sc.nextLine();
+                        System.out.println(p.name);
+                    }
+                    case (4) -> {
+                        System.out.println("Enter new pet's date of birth (DD/MM/YYYY):");
+                        p.birthday = new SimpleDateFormat("dd/MM/yyyy").parse(sc.nextLine());
+                    }
+                    case (5) -> {
+                        System.out.println("Enter new description:");
+                        p.description = sc.nextLine();
+                    }
+                    default -> System.out.println("Please, enter correct field number:");
+                }
+            } else {
+                System.out.println("Id not found. Please, repeat the command with the correct pet id:");
+            }
+        }
     }
 
-    void doCycle() {
+    void doCycle() throws ParseException { // FIXME пока не знаю что делать с throws ParseException.
+        System.out.println(Manual.LOGO);
+        System.out.println(Manual.MANUAL);
         Scanner sc = new Scanner(System.in);
         boolean itWorks = true;
 
@@ -69,9 +117,9 @@ class UICycle {
             } else if (inputCommand.equals("LIST")) {
                 list();
             } else if (inputCommand.startsWith("REMOVE")) {
-                remove(sc);
+                remove(inputCommand);
             } else if (inputCommand.startsWith("EDIT")) {
-                edit(sc);
+                edit(inputCommand, sc);
             } else {
                 System.out.println("Please, enter the command.");
             }
@@ -80,9 +128,7 @@ class UICycle {
 }
 
 public class Main {
-    public static void main(String[] args) {
-        System.out.println(Manual.LOGO);
-        System.out.println(Manual.MANUAL);
+    public static void main(String[] args) throws ParseException { // FIXME пока не знаю что делать с throws ParseException.
 
         UICycle uiCycle = new UICycle();
         uiCycle.doCycle();
