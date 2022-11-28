@@ -65,33 +65,25 @@ class UICycle {
     void edit(String editCommand, Scanner sc) throws ParseException { // FIXME пока не знаю что делать с throws ParseException но это про Date.
         int editNumber = Integer.parseInt(editCommand.replace("EDIT ", "")); // TODO add try catch for number.
         System.out.println(Manual.EDITMENU);
-        int fieldNumber = sc.nextInt();
+        int fieldNumber = Integer.parseInt(sc.nextLine());
         for (Animal p : pets) {
             if (p.id == editNumber) {
-                switch (fieldNumber) {
-                    case (1) -> {
-                        System.out.println("Enter new kind:");
-                        p.kind = sc.nextLine();
-                    }
-                    case (2) -> {
-                        System.out.println("Enter new gender:");
+                if (fieldNumber == 1) {
+                    System.out.println("Enter new kind:");
+                    p.kind = sc.nextLine();
+                } else if (fieldNumber == 2) {
                         p.gender = sc.nextLine();
-                    }
-                    case (3) -> {
-                        System.out.println(p.name);
+                } else if (fieldNumber == 3) {
                         System.out.println("Enter new name:");
                         p.name = sc.nextLine();
-                        System.out.println(p.name);
-                    }
-                    case (4) -> {
+                } else if (fieldNumber == 4) {
                         System.out.println("Enter new pet's date of birth (DD/MM/YYYY):");
                         p.birthday = new SimpleDateFormat("dd/MM/yyyy").parse(sc.nextLine());
-                    }
-                    case (5) -> {
+                } else if (fieldNumber == 5) {
                         System.out.println("Enter new description:");
                         p.description = sc.nextLine();
-                    }
-                    default -> System.out.println("Please, enter correct field number:");
+                } else {
+                     System.out.println("Please, enter correct field number:");
                 }
             } else {
                 System.out.println("Id not found. Please, repeat the command with the correct pet id:");
@@ -103,15 +95,15 @@ class UICycle {
         System.out.println(Manual.LOGO);
         System.out.println(Manual.MANUAL);
         Scanner sc = new Scanner(System.in);
-        boolean itWorks = true;
 
-        while (itWorks) {
+        while (true) {
+            System.out.println("Please, enter the command.");
 
             String inputCommand = sc.nextLine();
             inputCommand = inputCommand.toUpperCase();
 
             if (inputCommand.equals("EXIT")) {
-                itWorks = false;
+                break;
             } else if (inputCommand.equals("ADD")){
                 addPet(sc);
             } else if (inputCommand.equals("LIST")) {
@@ -120,8 +112,6 @@ class UICycle {
                 remove(inputCommand);
             } else if (inputCommand.startsWith("EDIT")) {
                 edit(inputCommand, sc);
-            } else {
-                System.out.println("Please, enter the command.");
             }
         }
     }
