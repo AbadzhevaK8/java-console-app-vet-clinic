@@ -18,7 +18,7 @@ public class Manual {
                 | ADD - add a pet.                                       |
                 | LIST - data on all available pets.                     |
                 | REMOVE n - remove pet number n from the list.          |
-                | EDIT n - edit pet information.                         |
+                | EDIT n - edit pet information. n is pt id number.      |
                 | EXIT - exit from the program.                          |
                 +--------------------------------------------------------+""".indent(7);
 
@@ -27,11 +27,21 @@ public class Manual {
             | Select field to edit: |
             +-----------------------+
             | 1 - kind              |
-            | 2 - gender            |
+            | 2 - sex               |
             | 3 - name              |
             | 4 - birth date        |
             | 5 - description       |
             +-----------------------+
             """;
+
+     static final String SEXMENU = """
++--------------------------------+
+| Specify the gender of the pet: |
++--------------------------------+
+| 1 - female                     |
+| 2 - male                       |
+| 3 - other                      |
++--------------------------------+
+             """;
 }
 
