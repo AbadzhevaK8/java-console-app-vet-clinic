@@ -11,7 +11,7 @@ enum Sex {
 class Animal {
     int id;
     String kind;
-    String sex;
+    Sex sex;
     String name;
     Date birthday;
     String description;
@@ -33,11 +33,11 @@ class UICycle {
         System.out.println(Manual.SEXMENU);
         String strSex = sc.nextLine();
         if (Objects.equals(strSex, "1")) {
-            pet.sex = String.valueOf(Sex.FEMALE);
+            pet.sex = Sex.FEMALE;
         } else if (Objects.equals(strSex, "2")) {
-            pet.sex = String.valueOf(Sex.MALE);
+            pet.sex = Sex.MALE;
         } else {
-            pet.sex = String.valueOf(Sex.OTHER);
+            pet.sex = Sex.OTHER;
         }
 
         System.out.println("Enter pet name:");
@@ -118,11 +118,11 @@ class UICycle {
                         System.out.println(Manual.SEXMENU);
                         String strSex = sc.nextLine();
                         if (Objects.equals(strSex, "1")) {
-                            p.sex = String.valueOf(Sex.FEMALE);
+                            p.sex = Sex.FEMALE;
                         } else if (Objects.equals(strSex, "2")) {
-                            p.sex = String.valueOf(Sex.MALE);
+                            p.sex = Sex.MALE;
                         } else {
-                            p.sex = String.valueOf(Sex.OTHER);
+                            p.sex = Sex.OTHER;
                         }
                         System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
                     } else if (fieldNumber == 3) {
