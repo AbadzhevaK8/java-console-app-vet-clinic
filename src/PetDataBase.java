@@ -5,6 +5,29 @@ import java.util.ArrayList;
 
 public class PetDataBase {
 
+    static int petIdChecker() {
+        int basicId = 0;
+        try {
+            File file = new File("petsBase.txt");
+            FileReader fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            String line = reader.readLine();
+            while (line != null) {
+                String[] string = line.split(";");
+                basicId = Integer.parseInt(string[0]);
+                line = reader.readLine();
+            }
+            fr.close();
+            reader.close();
+        }  catch (FileNotFoundException e) {
+            return basicId;
+        } catch (IOException e) {
+            return basicId;
+        }
+        return basicId;
+    }
+
+
     static void save(ArrayList<Animal> pets) {
         File petsBase = new File("petsBase.txt");
         try {
@@ -28,6 +51,11 @@ public class PetDataBase {
                 System.out.println("Something get wrong.");
             }
         }
+        try {
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Something get wrong.");
+        }
     }
 
 
@@ -47,7 +75,6 @@ public class PetDataBase {
                 pet.name = string[3];
                 try {
                     pet.birthday = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(string[4]);
-                    //break;
                 } catch (ParseException e) {
                     System.out.println("Invalid date format.");
                 }
@@ -55,6 +82,8 @@ public class PetDataBase {
                 pets.add(pet);
                 line = reader.readLine();
             }
+            fr.close();
+            reader.close();
         }  catch (FileNotFoundException e) {
             System.out.println("File not found.");
         } catch (IOException e) {

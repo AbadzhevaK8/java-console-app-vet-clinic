@@ -20,9 +20,10 @@ class Animal {
 class UICycle {
 
     ArrayList<Animal> pets = new ArrayList<>();
-    int petsIdCounter = 0;
+
 
     void addPet(Scanner sc) {
+        int petsIdCounter = PetDataBase.petIdChecker();
         petsIdCounter++;
         Animal pet = new Animal();
         pet.id = petsIdCounter;
