@@ -1,2 +1,2 @@
-1;cat;FEMALE;Sofi;Fri Nov 11 00:00:00 MSK 2011;amazing
-2;cat;MALE;Morris;Sat Dec 12 00:00:00 MSK 2020;cool
+1;cat;OTHER;;Wed Nov 11 00:00:00 MSK 2020;coo
+2;cat;FEMALE;Mia;Fri Dec 12 00:00:00 MSK 2003;wow

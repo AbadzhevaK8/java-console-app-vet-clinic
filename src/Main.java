@@ -1,4 +1,3 @@
-import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -16,16 +15,6 @@ class Animal {
     String name;
     Date birthday;
     String description;
-
-//    public Animal getPetById(int petId, ArrayList<Animal> pets) {
-//        for (Animal p : pets) {
-//            if (p.id == petId) {
-//                return p;
-//            } else {
-//                System.out.println("Id not found. Please, repeat the command with the correct pet id.");
-//            }
-//        }
-//    }
 }
 
 class UICycle {
@@ -168,33 +157,6 @@ class UICycle {
         }
     }
 
-    void save(ArrayList<Animal> pets) {
-        File petsBase = new File("petsBase.txt");
-        try {
-            petsBase.createNewFile();
-        } catch (IOException e) {
-            System.out.println("Происходит что-то странное");
-        }
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter((petsBase));
-        } catch (IOException e) {
-            System.out.println("Происходит что-то странное");
-        }
-        for (Animal p : pets) {
-            String petStr = p.id + ";" + p.kind + ";" + p.sex + ";" + p.name + ";" + p.birthday + ";" + p.description + "\n";
-            try {
-                fw.write(petStr);
-                fw.flush();
-            } catch (IOException e) {
-                System.out.println("Происходит что-то странное");
-            }
-        }
-    }
-
-//    void load () {
-//        BufferedReader fr = new BufferedReader(new FileReader(petsBase));
-//    }
 
     void doCycle() {
         System.out.println(Manual.LOGO);
@@ -218,7 +180,9 @@ class UICycle {
             } else if (inputCommand.startsWith("EDIT ")) {
                 edit(inputCommand, sc);
             } else if (inputCommand.startsWith("SAVE")) {
-                save(pets);
+                PetDataBase.save(pets);
+            } else if (inputCommand.startsWith("LOAD")) {
+                PetDataBase.load(pets);
             }
         }
     }

@@ -20,6 +20,8 @@ public class Manual {
                 | REMOVE n - remove pet number n from the list.          |
                 | EDIT n - edit pet information. n is pt id number.      |
                 | EXIT - exit from the program.                          |
+                | SAVE - save current changes.                           |
+                | LOAD - load pets database.                             |
                 +--------------------------------------------------------+""".indent(7);
 
      static final String EDITMENU = """
