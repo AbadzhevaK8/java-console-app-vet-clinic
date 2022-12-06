@@ -19,8 +19,6 @@ public class PetDataBase {
             }
             fr.close();
             reader.close();
-        }  catch (FileNotFoundException e) {
-            return basicId;
         } catch (IOException e) {
             return basicId;
         }
@@ -60,7 +58,8 @@ public class PetDataBase {
 
 
     static void load(ArrayList<Animal> pets) {
-        pets.clear();
+        ArrayList<Animal> petsFromBase = new ArrayList<>();
+
         try {
             File file = new File("petsBase.txt");
             FileReader fr = new FileReader(file);
@@ -79,7 +78,7 @@ public class PetDataBase {
                     System.out.println("Invalid date format.");
                 }
                 pet.description = string[5];
-                pets.add(pet);
+                petsFromBase.add(pet);
                 line = reader.readLine();
             }
             fr.close();
@@ -89,7 +88,8 @@ public class PetDataBase {
         } catch (IOException e) {
             System.out.println("Something get wrong.");
         }
+        pets.clear();
+        pets.addAll(0, petsFromBase);
         System.out.println("Success!");
     }
-
 }
