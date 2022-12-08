@@ -49,29 +49,21 @@ class UICycle {
 
     void edit(String editCommand, Scanner sc) { //TODO add getters and setters to Animal class for each function
         String editStr = editCommand.replace("EDIT ", "");
-        int editNumber;
         try {
-            editNumber = Integer.parseInt(editStr);
+            int editNumber = Integer.parseInt(editStr);
             Animal pet = PetDataBase.getPetById(editNumber, pets);
             System.out.print(Manual.EDITMENU);
-            int fieldNumber;
-            while (true) {
-                try {
-                    fieldNumber = Integer.parseInt(sc.nextLine());
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.println("Please, enter correct number:");
-                }
-            }
-            if (fieldNumber == 1) {
+            int editMenuNumber = editPetMenuCycle(sc);
+
+            if (editMenuNumber == 1) {
                 Animal.setPetKind(sc, pet);
-            } else if (fieldNumber == 2) {
+            } else if (editMenuNumber == 2) {
                 Animal.setPetSex(sc, pet);
-            } else if (fieldNumber == 3) {
+            } else if (editMenuNumber == 3) {
                 Animal.setPetName(sc, pet);
-            } else if (fieldNumber == 4) {
+            } else if (editMenuNumber == 4) {
                 Animal.setPetDate(sc, pet);
-            } else if (fieldNumber == 5) {
+            } else if (editMenuNumber == 5) {
                 Animal.setPetDescription(sc, pet);
             } else {
                 System.out.println("Incorrect field number.");
@@ -84,6 +76,18 @@ class UICycle {
         }
     }
 
+    int editPetMenuCycle(Scanner sc) {
+        int num;
+        while (true) {
+            try {
+                num = Integer.parseInt(sc.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Please, enter correct number:");
+            }
+        }
+        return num;
+    }
 
     void doCycle() {
         System.out.println(Manual.LOGO);
