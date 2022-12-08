@@ -1,2 +1,3 @@
-2;cat;FEMALE;Lola;Sat Dec 12 00:00:00 MSK 2020;cool
+2;cat;MALE;Lola;Sat Dec 12 00:00:00 MSK 2020;cool
 3;cat;MALE;Morris;Mon Oct 03 00:00:00 MSK 3335;awesome
+4;dog;FEMALE;Spike;Sun Jul 13 00:00:00 MSD 2008;Pretty dog!

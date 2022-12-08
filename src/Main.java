@@ -1,5 +1,3 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -9,40 +7,14 @@ class UICycle {
     ArrayList<Animal> pets = new ArrayList<>();
 
     void addPet(Scanner sc) { //TODO add getters and setters to Animal class for each function
-        int petsIdCounter = PetDataBase.petIdChecker();
-        petsIdCounter++;
+
         Animal pet = new Animal();
-        pet.id = petsIdCounter;
-
-        System.out.println("Enter pet kind:");
-        pet.kind = sc.nextLine();
-
-        System.out.println(Manual.SEXMENU);
-        String strSex = sc.nextLine();
-        if (Objects.equals(strSex, "1")) {
-            pet.sex = Animal.Sex.FEMALE;
-        } else if (Objects.equals(strSex, "2")) {
-            pet.sex = Animal.Sex.MALE;
-        } else {
-            pet.sex = Animal.Sex.OTHER;
-        }
-
-        System.out.println("Enter pet name:");
-        pet.name = sc.nextLine();
-
-        System.out.println("Enter your pet's date of birth (DD/MM/YYYY):");
-        while (true) {
-            String dateStr = sc.nextLine();
-            try {
-                pet.birthday = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
-                break;
-            } catch (ParseException e) {
-                System.out.println("Invalid date format. Please, enter your pet's date of birth (DD/MM/YYYY): ");
-            }
-        }
-
-        System.out.println("Enter a description of the pet:");
-        pet.description = sc.nextLine();
+        Animal.setPetName(pet);
+        Animal.setPetKind(sc, pet);
+        Animal.setPetSex(sc, pet);
+        Animal.setPetName(sc, pet);
+        Animal.setPetDate(sc, pet);
+        Animal.setPetDescription(sc, pet);
 
         pets.add(pet);
         System.out.println("Adding successful:");
@@ -80,7 +52,7 @@ class UICycle {
         int editNumber;
         try {
             editNumber = Integer.parseInt(editStr);
-            Animal p = PetDataBase.getPetById(editNumber, pets);
+            Animal pet = PetDataBase.getPetById(editNumber, pets);
             System.out.print(Manual.EDITMENU);
             int fieldNumber;
             while (true) {
@@ -92,45 +64,23 @@ class UICycle {
                 }
             }
             if (fieldNumber == 1) {
-                System.out.println("Enter new kind:");
-                Objects.requireNonNull(p).kind = sc.nextLine();
-                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+                Animal.setPetKind(sc, pet);
             } else if (fieldNumber == 2) {
-                System.out.println(Manual.SEXMENU);
-                String strSex = sc.nextLine();
-                if (Objects.equals(strSex, "1")) {
-                    Objects.requireNonNull(p).sex = Animal.Sex.FEMALE;
-                } else if (Objects.equals(strSex, "2")) {
-                    Objects.requireNonNull(p).sex = Animal.Sex.MALE;
-                } else {
-                    Objects.requireNonNull(p).sex = Animal.Sex.OTHER;
-                }
-                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+                Animal.setPetSex(sc, pet);
             } else if (fieldNumber == 3) {
-                System.out.println("Enter new name:");
-                Objects.requireNonNull(p).name = sc.nextLine();
-                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+                Animal.setPetName(sc, pet);
             } else if (fieldNumber == 4) {
-                System.out.println("Enter new pet's date of birth (DD/MM/YYYY):");
-                while (true) {
-                    String dateStr = sc.nextLine();
-                    try {
-                        Objects.requireNonNull(p).birthday = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
-                        break;
-                    } catch (ParseException e) {
-                        System.out.println("Invalid date format. Please, enter new pet's date of birth (DD/MM/YYYY): ");
-                    }
-                }
-                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+                Animal.setPetDate(sc, pet);
             } else if (fieldNumber == 5) {
-                System.out.println("Enter new description:");
-                Objects.requireNonNull(p).description = sc.nextLine();
-                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+                Animal.setPetDescription(sc, pet);
             } else {
                 System.out.println("Incorrect field number.");
             }
+            System.out.printf("Result: %d. %s %s %s %s %s\n", pet.id, pet.kind, pet.sex, pet.name, pet.birthday, pet.description);
         } catch (NumberFormatException e) {
             System.out.println("Invalid id. Please, repeat the command with the correct pet id.");
+        } catch (NullPointerException e) {
+            System.out.println("Something get wrong.");
         }
     }
 
