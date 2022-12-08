@@ -1,1 +1,2 @@
 2;cat;FEMALE;Lola;Sat Dec 12 00:00:00 MSK 2020;cool
+3;cat;MALE;Morris;Mon Oct 03 00:00:00 MSK 3335;awesome

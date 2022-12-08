@@ -2,20 +2,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-enum Sex {
-    FEMALE,
-    MALE,
-    OTHER
-        }
 
-class Animal {
-    int id;
-    String kind;
-    Sex sex;
-    String name;
-    Date birthday;
-    String description;
-}
 
 class UICycle {
 
@@ -34,11 +21,11 @@ class UICycle {
         System.out.println(Manual.SEXMENU);
         String strSex = sc.nextLine();
         if (Objects.equals(strSex, "1")) {
-            pet.sex = Sex.FEMALE;
+            pet.sex = Animal.Sex.FEMALE;
         } else if (Objects.equals(strSex, "2")) {
-            pet.sex = Sex.MALE;
+            pet.sex = Animal.Sex.MALE;
         } else {
-            pet.sex = Sex.OTHER;
+            pet.sex = Animal.Sex.OTHER;
         }
 
         System.out.println("Enter pet name:");
@@ -119,11 +106,11 @@ class UICycle {
                         System.out.println(Manual.SEXMENU);
                         String strSex = sc.nextLine();
                         if (Objects.equals(strSex, "1")) {
-                            p.sex = Sex.FEMALE;
+                            p.sex = Animal.Sex.FEMALE;
                         } else if (Objects.equals(strSex, "2")) {
-                            p.sex = Sex.MALE;
+                            p.sex = Animal.Sex.MALE;
                         } else {
-                            p.sex = Sex.OTHER;
+                            p.sex = Animal.Sex.OTHER;
                         }
                         System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
                     } else if (fieldNumber == 3) {

@@ -25,35 +25,30 @@ public class PetDataBase {
         return basicId;
     }
 
-
+    @SuppressWarnings("ResultOFMethodCallIgnored")
     static void save(ArrayList<Animal> pets) {
+        System.out.println("CONGRATULATIONS! You have just rewritten the entire database."); // TODO think about preload DB.
         File petsBase = new File("petsBase.txt");
         try {
             petsBase.createNewFile();
-        } catch (IOException e) {
-            System.out.println("Something get wrong.");
-        }
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter((petsBase));
-        } catch (IOException e) {
-            System.out.println("Something get wrong.");
-        }
-        for (Animal p : pets) {
-            String petStr = p.id + ";" + p.kind + ";" + p.sex + ";" + p.name + ";" + p.birthday + ";" + p.description + "\n";
-            try {
-                assert fw != null;
-                fw.append(petStr);
-                fw.flush();
-            } catch (IOException e) {
-                System.out.println("Something get wrong.");
+
+            FileWriter fw = new FileWriter((petsBase));
+
+            for (Animal p : pets) {
+                String petStr = p.id + ";" + p.kind + ";" + p.sex + ";" + p.name + ";" + p.birthday + ";" + p.description + "\n";
+                try {
+                    fw.append(petStr);
+                    fw.flush();
+                } catch (IOException e) {
+                    System.out.println("Something get wrong.");
+                }
             }
-        }
-        try {
+            System.out.println();
             fw.close();
         } catch (IOException e) {
             System.out.println("Something get wrong.");
         }
+        System.out.println("Success!");
     }
 
 
@@ -70,7 +65,7 @@ public class PetDataBase {
                 Animal pet = new Animal();
                 pet.id = Integer.parseInt(string[0]);
                 pet.kind = string[1];
-                pet.sex = Sex.valueOf(string[2]);
+                pet.sex = Animal.Sex.valueOf(string[2]);
                 pet.name = string[3];
                 try {
                     pet.birthday = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(string[4]);
