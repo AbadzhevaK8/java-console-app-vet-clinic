@@ -5,6 +5,17 @@ import java.util.ArrayList;
 
 public class PetDataBase {
 
+    static Animal getPetById(int petId, ArrayList<Animal> pets) {
+        for (Animal p : pets) {
+            if (p.id == petId) {
+                return p;
+            } else {
+                System.out.println("Id not found. Please, repeat the command with the correct pet id.");
+            }
+        }
+        return null;
+    }
+
     static int petIdChecker() {
         int basicId = 0;
         try {

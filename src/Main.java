@@ -8,8 +8,7 @@ class UICycle {
 
     ArrayList<Animal> pets = new ArrayList<>();
 
-
-    void addPet(Scanner sc) {
+    void addPet(Scanner sc) { //TODO add getters and setters to Animal class for each function
         int petsIdCounter = PetDataBase.petIdChecker();
         petsIdCounter++;
         Animal pet = new Animal();
@@ -69,76 +68,66 @@ class UICycle {
         int removeNumber;
         try {
             removeNumber = Integer.parseInt(removeStr);
-            for (Animal p : pets) {
-                if (p.id == removeNumber) {
-                    pets.removeIf(pet -> pet.id == removeNumber);
-                } else {
-                    System.out.println("Id not found. Please, repeat the command with the correct pet id.");
-                }
-            }
+            Animal pet = PetDataBase.getPetById(removeNumber, pets);
+            pets.remove(pet);
         } catch (NumberFormatException e) {
             System.out.println("Invalid id. Please, repeat the command with the correct pet id.");
         }
     }
 
-    void edit(String editCommand, Scanner sc) {
+    void edit(String editCommand, Scanner sc) { //TODO add getters and setters to Animal class for each function
         String editStr = editCommand.replace("EDIT ", "");
         int editNumber;
         try {
             editNumber = Integer.parseInt(editStr);
-            for (Animal p : pets) {
-                if (p.id == editNumber) {
-                    System.out.print(Manual.EDITMENU);
-                    int fieldNumber;
-                    while (true) {
-                        try {
-                            fieldNumber = Integer.parseInt(sc.nextLine());
-                            break;
-                        } catch (NumberFormatException e) {
-                            System.out.println("Please, enter correct number:");
-                        }
-                    }
-                    if (fieldNumber == 1) {
-                        System.out.println("Enter new kind:");
-                        p.kind = sc.nextLine();
-                        System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
-                    } else if (fieldNumber == 2) {
-                        System.out.println(Manual.SEXMENU);
-                        String strSex = sc.nextLine();
-                        if (Objects.equals(strSex, "1")) {
-                            p.sex = Animal.Sex.FEMALE;
-                        } else if (Objects.equals(strSex, "2")) {
-                            p.sex = Animal.Sex.MALE;
-                        } else {
-                            p.sex = Animal.Sex.OTHER;
-                        }
-                        System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
-                    } else if (fieldNumber == 3) {
-                        System.out.println("Enter new name:");
-                        p.name = sc.nextLine();
-                        System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
-                    } else if (fieldNumber == 4) {
-                        System.out.println("Enter new pet's date of birth (DD/MM/YYYY):");
-                        while (true) {
-                            String dateStr = sc.nextLine();
-                            try {
-                                p.birthday = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
-                                break;
-                            } catch (ParseException e) {
-                                System.out.println("Invalid date format. Please, enter new pet's date of birth (DD/MM/YYYY): ");
-                            }
-                        }
-                        System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
-                    } else if (fieldNumber == 5) {
-                        System.out.println("Enter new description:");
-                        p.description = sc.nextLine();
-                        System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
-                    } else {
-                        System.out.println("Incorrect field number.");
-                    }
-                } else {
-                    System.out.println("Id not found. Please, repeat the command with the correct pet id.");
+            Animal p = PetDataBase.getPetById(editNumber, pets);
+            System.out.print(Manual.EDITMENU);
+            int fieldNumber;
+            while (true) {
+                try {
+                    fieldNumber = Integer.parseInt(sc.nextLine());
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Please, enter correct number:");
                 }
+            }
+            if (fieldNumber == 1) {
+                System.out.println("Enter new kind:");
+                Objects.requireNonNull(p).kind = sc.nextLine();
+                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+            } else if (fieldNumber == 2) {
+                System.out.println(Manual.SEXMENU);
+                String strSex = sc.nextLine();
+                if (Objects.equals(strSex, "1")) {
+                    Objects.requireNonNull(p).sex = Animal.Sex.FEMALE;
+                } else if (Objects.equals(strSex, "2")) {
+                    Objects.requireNonNull(p).sex = Animal.Sex.MALE;
+                } else {
+                    Objects.requireNonNull(p).sex = Animal.Sex.OTHER;
+                }
+                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+            } else if (fieldNumber == 3) {
+                System.out.println("Enter new name:");
+                Objects.requireNonNull(p).name = sc.nextLine();
+                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+            } else if (fieldNumber == 4) {
+                System.out.println("Enter new pet's date of birth (DD/MM/YYYY):");
+                while (true) {
+                    String dateStr = sc.nextLine();
+                    try {
+                        Objects.requireNonNull(p).birthday = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+                        break;
+                    } catch (ParseException e) {
+                        System.out.println("Invalid date format. Please, enter new pet's date of birth (DD/MM/YYYY): ");
+                    }
+                }
+                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+            } else if (fieldNumber == 5) {
+                System.out.println("Enter new description:");
+                Objects.requireNonNull(p).description = sc.nextLine();
+                System.out.printf("%d. %s %s %s %s %s\n", p.id, p.kind, p.sex, p.name, p.birthday, p.description);
+            } else {
+                System.out.println("Incorrect field number.");
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid id. Please, repeat the command with the correct pet id.");
